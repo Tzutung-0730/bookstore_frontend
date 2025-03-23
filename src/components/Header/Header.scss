@@ -1,0 +1,429 @@
+/* src/components/Header.scss */
+
+/* 定義顏色、字體大小、圓角等變數 */
+$primary-color: #333;
+$secondary-color: #fff;
+$hover-color: #555;
+$active-color: #555;
+$text-right-color: #fff;
+$hover-right-color: #6da27f;
+$active-right-color: #6da27f;
+$right-color: #8baf986e; 
+$left-color: rgba(0, 0, 0, 0.9); 
+$active-text-right-color: #fff;
+$active-text-left-color: #fff;
+
+$font-size-base: 16px;
+$font-size-small: 14px;
+$font-size-large: 18px;
+$border-radius: 25px;
+$transition-time: 0.3s;  /* 平滑過渡時間 */
+$nav-padding: 10px 20px;
+
+$xs: 559.99px; //max
+$sm: 959.99px; //max
+$md: 1279.99px; //max
+$lg: 1919.99px; //max
+$xl: 1920px; //min
+
+.header-container {
+    background-color: $primary-color;
+    color: $secondary-color;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* 增加陰影效果 */
+    position: fixed; /* 固定在頁面頂部 */
+    top: 0;  /* 距離頂部為 0 */
+    left: 0;  /* 確保在屏幕最左邊 */
+    width: 100%;  /* 確保 Header 填滿整個螢幕寬度 */
+    z-index: 1000;  /* 確保 Header 在其他元素之上 */
+}
+
+
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $nav-padding;
+    position: relative;
+    z-index: 10;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+
+    a,
+    button {
+        color: #fff;
+        text-decoration: none;
+        font-size: 16px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px 16px;
+        border-radius: 25px; /* 加入圓角 */
+        transition: background-color 0.3s ease, color 0.3s ease, font-weight 0.3s ease; /* 平滑過渡效果 */
+    }
+
+    button:hover,
+        a:hover {
+        background-color: $hover-color;
+        color: #fff;  /* 保持字體顏色 */
+        border-radius: 25px; /* 確保圓角 */
+    }
+
+    .active {
+        background-color: $active-color; /* 更深的背景顏色 */
+        font-weight: bold;  /* 文字加粗 */
+    }
+
+    button:active,
+    a:active {
+        background-color: $active-color; /* 更深的背景顏色 */
+        font-weight: bold;  /* 文字加粗 */
+    }
+
+    /* 如果是選單項目 */
+    &.nav-item a {
+        display: flex;
+        align-items: center;
+
+        i {
+            margin-right: 5px;
+        }
+    }
+
+    /* 子選單的dropdown效果 */
+    .dropdown {
+        position: relative;
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%;
+            background-color: $hover-color;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            padding: 5px 0;
+            min-width: 150px;
+        }
+
+        &:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 8px 16px;
+            text-decoration: none;
+            color: $secondary-color;
+
+            &:hover {
+                background-color: $active-color; /* hover子選單的背景 */
+            }
+        }
+    }
+}
+
+.nav-list {
+    display: flex;
+    justify-content: space-between;  /* 分開左右 */
+    width: 100%;
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    
+    .left-menu {
+        display: flex;
+    }
+
+    .right-menu {
+        display: flex;
+        margin-left: auto; /* 右側選單靠右 */
+    }
+}
+
+/* 當螢幕小於 $sm 時，顯示漢堡菜單 */
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 1000;
+}
+
+
+/* 側邊菜單樣式（下拉式選單） */
+.side-menu {
+    display: none;  /* 預設隱藏 */
+    position: absolute;
+    top: 50px;  /* 與頂部距離 */
+    width: 30%;   /* 設置選單寬度 */
+    left: -100%;
+    left: 0;
+    background-color: $left-color;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5); /* 右側陰影效果 */
+    transition: left 0.3s ease, opacity 0.3s ease; /* 滑動過渡效果 */
+
+    &.open {
+        display: block;  /* 開啟選單時顯示 */
+        opacity: 1; /* 顯示選單 */
+        left: 0;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .left-menu {
+        display: flex;
+        justify-content: center;  /* 水平居中 */
+        align-items: center;      /* 垂直居中 */
+        width: 100%;              /* 讓選單項目充滿整個寬度 */
+        transition: background-color 0.3s ease, box-shadow 0.3s ease; /* 添加陰影過渡效果 */
+        border-bottom: 1px solid #444;  /* 分隔線使選項有區分感 */
+        // border-radius: 10px;  /* 項目圓角設置 */
+
+        &:last-child {
+            border-bottom: none;  /* 最後一個選項不加分隔線 */
+        }
+
+        &:hover {
+            background-color: $hover-color;  /* 懸停時變更背景 */
+        }
+
+        a,
+        button {
+            display: flex;  /* 讓按鈕區域變為 flex 元素 */
+            justify-content: center; /* 使文字水平居中 */
+            align-items: center;     /* 使文字垂直居中 */
+            color: $secondary-color;
+            text-decoration: none;
+            font-size: 14px; /* 增加字體大小 */
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 20px;
+            width: 100%;
+            transition: background-color 0.3s ease, color 0.3s ease; /* 平滑過渡效果 */
+            border-radius: 5px;  /* 讓按鈕有圓角 */
+        }
+
+        a:hover,
+        button:hover {
+            background-color: $hover-color;  /* 懸停時背景顏色 */
+            color: white;  /* 文字顏色 */
+        }
+
+        .active {
+            background-color: $active-color; /* 更深的背景顏色 */
+            font-weight: bold;  /* 文字加粗 */
+        }
+
+        /* 確保按鈕和鏈接樣式一致 */
+        .side-nav-link {
+            // background-color: transparent;
+            // color: $secondary-color; /* 預設文字顏色 */
+            // text-decoration: none;
+
+            i {
+                margin-right: 10px; /* 設定圖標與文字的間距 */
+            }
+
+            &:hover {
+                background-color: $hover-color; /* 懸停背景顏色 */
+                color: $active-text-left-color;
+            }
+        }
+
+        button.side-nav-link {
+            color: $secondary-color; /* 預設文字顏色 */
+            cursor: pointer;  /* 鼠標指針變成手形 */
+            transition: background-color 0.3s ease;
+
+            i {
+                margin-right: 10px; /* 設定圖標與文字的間距 */
+            }
+
+            &:hover {
+                background-color: $hover-color; /* 懸停背景顏色 */
+                color: $active-text-left-color;
+            }
+        }
+    }
+
+    /* 右側選單樣式 */
+    .right-menu {
+        display: flex;
+        justify-content: center;  /* 水平居中 */
+        align-items: center;      /* 垂直居中 */
+        width: 100%;              /* 讓選單項目充滿整個寬度 */
+        background-color: $right-color; /* 深色背景，並增加透明感 */
+        transition: background-color 0.3s ease, box-shadow 0.3s ease; /* 添加陰影過渡效果 */
+        border-bottom: 1px solid #7e7e7e;  /* 分隔線使選項有區分感 */
+        // border-radius: 10px;  /* 項目圓角設置 */
+
+        &:last-child {
+            border-bottom: none;  /* 最後一個選項不加分隔線 */
+        }
+
+        &:hover {
+            background-color: $hover-right-color;  /* 懸停時變更背景 */
+        }
+
+        a,
+        button {
+            display: flex;  /* 讓按鈕區域變為 flex 元素 */
+            justify-content: center; /* 使文字水平居中 */
+            align-items: center;     /* 使文字垂直居中 */
+            color: $text-right-color;
+            text-decoration: none;
+            font-size: 14px; /* 增加字體大小 */
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 20px;
+            width: 100%;
+            transition: background-color 0.3s ease, color 0.3s ease; /* 平滑過渡效果 */
+        }
+
+        a:hover,
+        button:hover {
+            background-color: $hover-right-color;  /* 懸停時背景顏色 */
+            color: white;  /* 文字顏色 */
+        }
+
+        .active {
+            background-color: $active-right-color; /* 更深的背景顏色 */
+            font-weight: bold;  /* 文字加粗 */
+        }
+
+        /* 確保按鈕和鏈接樣式一致 */
+        .side-nav-link {
+            // background-color: transparent;
+            // color: $secondary-color; /* 預設文字顏色 */
+            // text-decoration: none;
+
+            i {
+                margin-right: 10px; /* 設定圖標與文字的間距 */
+            }
+
+            &:hover {
+                background-color: $hover-right-color; /* 懸停背景顏色 */
+                color: $active-text-right-color;
+            }
+        }
+
+        button.side-nav-link {
+            color: $secondary-color; /* 預設文字顏色 */
+            cursor: pointer;  /* 鼠標指針變成手形 */
+            transition: background-color 0.3s ease;
+
+            i {
+                margin-right: 10px; /* 設定圖標與文字的間距 */
+            }
+
+            &:hover {
+                background-color: $hover-right-color; /* 懸停背景顏色 */
+                color: $active-text-right-color;
+            }
+        }
+    }
+}
+
+
+
+
+@media screen and (max-width: $sm) {
+    .nav-list {
+        display: none;
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .hamburger-menu {
+        display: flex; /* 顯示漢堡菜單 */
+        cursor: pointer;
+        font-size: 30px;
+    }
+
+    /* 設置 nav-item 文字居中，並且讓它充滿整個區域 */
+    .side-nav-item {
+        margin-left: 0;
+        text-align: center;  /* 使文字居中 */
+        font-size: $font-size-small;
+        display: block;
+        
+        a,
+        button {
+            display: flex;  /* 讓按鈕區域變為 flex 元素 */
+            justify-content: center; /* 使文字水平居中 */
+            align-items: center;     /* 使文字垂直居中 */
+            padding: 20px;  /* 增加上下內邊距 */
+            color: $secondary-color;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease; /* 懸停過渡 */
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        a:hover,
+        button:hover {
+            background-color: $hover-color; /* 懸停時背景顏色 */
+            color: #fff;  /* 懸停時文字顏色 */
+        }
+
+        .active {
+            background-color: $active-color; /* 更深的背景顏色 */
+            font-weight: bold;  /* 文字加粗 */
+        }
+    
+        button:active,
+        a:active {
+            background-color: $active-color; /* 更深的背景顏色 */
+            font-weight: bold;  /* 文字加粗 */
+        }
+
+        a {
+            i {
+                margin-right: 10px;
+            }
+        }
+    }
+
+    /* 調整下拉式選單顯示 */
+    .dropdown-menu {
+        position: static;  /* 在手機上顯示 */
+        box-shadow: none;
+    }
+
+    /* 控制側邊選單的顯示 */
+    .side-menu.open {
+        display: flex;
+        position: fixed;
+        transition: left 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+
+        .side-nav-list {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+    }
+}
+
+
+@media screen and (min-width: $sm) {
+    .side-menu {
+        display: none; /* 預設隱藏側邊選單 */
+    }
+
+    .nav-list {
+        display: flex; /* 大螢幕顯示橫向選單 */
+    }
+
+    /* 當側邊選單開啟時，保持隱藏狀態 */
+    .side-menu.open {
+        display: none;
+    }
+}

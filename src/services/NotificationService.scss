@@ -1,0 +1,84 @@
+/* notification.scss */
+
+$text-success-color: #4ca84f;
+$text-warn-color: #c18121;
+$text-error-color: #be7079;
+$bg-success-color: #d8f2e0;
+$bg-warn-color: #f0e9c6;
+$bg-error-color: #F2D8DB;
+
+.notification-popup {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;  /* 保證圖標和標題在同一行 */
+  min-width: 300px;  /* 設置最小寬度 */
+  max-width: 400px;  /* 設置最大寬度 */
+  padding: 20px;
+  font-size: 16px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  border-radius: 10px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.notification-popup .pi {
+  font-size: 24px;
+  margin-right: 10px; /* 設定圖標與文字之間的間距 */
+}
+
+.notification-popup strong {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.notification-popup .message {
+  word-wrap: break-word;
+  white-space: normal; /* 保證文本能夠換行 */
+  margin-top: 40px;
+  margin-left: -85px;
+}
+
+.notification-popup.success {
+  background-color: $bg-success-color; /* 成功 - 綠色 */
+  color: $text-success-color; /* 文字顏色為白色 */
+  
+  strong {
+    color: $text-success-color; /* 標題文字顏色為綠色 */
+  }
+
+  .pi {
+    color: $text-success-color; /* 圖標顏色為綠色 */
+  }
+}
+
+.notification-popup.warn {
+  background-color: $bg-warn-color; /* 警告 - 黃色 */
+  color: $text-warn-color; /* 文字顏色為黑色 */
+  
+  strong {
+    color: $text-warn-color; /* 標題文字顏色為黃色 */
+  }
+
+  .pi {
+    color: $text-warn-color; /* 圖標顏色為黃色 */
+  }
+}
+
+.notification-popup.error {
+  background-color: $bg-error-color; /* 錯誤 - 紅色 */
+  color: $text-error-color; /* 文字顏色為白色 */
+  
+  strong {
+    color: $text-error-color; /* 標題文字顏色為紅色 */
+  }
+
+  .pi {
+    color: $text-error-color; /* 圖標顏色為紅色 */
+  }
+}

@@ -1,0 +1,141 @@
+/* Login.scss */
+$background-color: rgba(255, 255, 255, 0.9);
+$input-border-color: 1px solid #ccc;
+$input-text-color: #415d3c;
+$button-color: #739274;
+$link-color: #172d64;
+
+html, body {
+    height: 100%;  /* 確保 body 佔滿整個視窗 */
+    margin: 0;
+    overflow: hidden;  /* 隱藏頁面的滾動條 */
+}
+
+.register-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 0 10px;  /* 使容器內有邊距 */
+}
+
+.form-container {
+    background-color: rgba(255, 255, 255, 0.9);  /* 半透明背景 */
+    padding: 30px;
+    border-radius: 10px;  /* 圓角邊框 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* 輕微陰影效果 */
+    width: 100%;
+    max-width: 500px;  /* 最大寬度 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+
+    .form-group {
+        width: 100%;
+        margin-bottom: 20px;
+        position: relative;
+        box-sizing: border-box;
+    }
+
+    h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    label {
+        font-size: 14px;
+        display: none; /* 隱藏label，顯示在輸入框內 */
+    }
+
+    input {
+        width: 100%;
+        padding: 12px 12px 12px 35px;  /* 給定一個padding，留出空間放圖標 */
+        font-size: 14px;
+        border: $input-border-color;
+        border-radius: 20px;  /* 圓角的輸入框 */
+        color: $input-border-color;  /* 文字顏色 */
+        background-color: transparent;  /* 使背景透明 */
+        // margin-bottom: 15px;
+        box-sizing: border-box; /* 確保內邊距和邊框包含在寬度內 */
+        ::placeholder {
+            color: $input-text-color;  /* 讓placeholder文字顏色顯示為淡灰色 */
+        }
+    }
+    
+    button {
+        padding: 10px;
+        width: 200px;
+        background-color: $button-color;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 10px;
+
+        :hover {
+            background-color: $button-color;
+        }
+    }
+
+    .error-message {
+        color: red;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+    .input-icon {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $input-text-color;
+    }
+
+    .links-up {
+        font-size: 14px;
+        margin-top: -15px;
+        display: flex;  /* 使用 Flexbox */
+        justify-content: flex-end;  /* 確保子元素靠右對齊 */
+        width: 100%;  /* 確保容器寬度是 100% */
+        padding-right: 10px; /* 加一點右邊距，避免元素貼邊 */
+        
+        a {
+            color: $link-color;
+            text-decoration: none;
+            margin: 10px;  /* 左右邊距 */
+            display: block;  /* 確保鏈接能在需要時換行 */
+            font-weight: bold;
+
+            :hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .links {
+        font-size: 14px;
+        text-align: center;
+        margin-top: 15px;
+        display: block;
+        flex-wrap: wrap;  /* 允許鏈接換行 */
+        justify-content: center;  /* 使鏈接水平居中 */
+
+        a {
+            color: $link-color;
+            text-decoration: none;
+            margin: 10px;  /* 左右邊距 */
+            display: block;  /* 確保鏈接能在需要時換行 */
+            font-weight: bold;
+
+            :hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+

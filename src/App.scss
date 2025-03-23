@@ -1,0 +1,68 @@
+@import './services/NotificationService.scss';
+
+$xs: 559.99px; //max
+$sm: 959.99px; //max
+$md: 1279.99px; //max
+$lg: 1919.99px; //max
+$xl: 1920px; //min
+
+$maxleftWidth: 200px; /* 側邊欄寬度 */
+$minleftWidth: 50px; /* 側邊欄最小寬度 */
+$trans-out: ease-out;
+
+$sidebar-bg: #2c3e50; /* 側邊欄背景顏色 */
+$sidebar-bg-light: #2c3e50c5; /* 側邊欄輕微透明背景顏色 */
+$sidebar-hover-bg: #4a4f55; /* 側邊欄 hover 背景顏色 */
+$active-bg: #e9e9e9; /* 當前頁面底色 */
+$open-hover-bg: #46617d; 
+$close-hover-bg: #d5d5d5; 
+
+.App {
+  text-align: center;
+  background-color: $active-bg;
+}
+
+.content {
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+  height: 100vh;
+
+  &.open {
+    margin-left: $maxleftWidth;
+  }
+
+  &.closed {
+    margin-left: $minleftWidth;
+  }
+}
+
+
+/* 響應式設計：當螢幕寬度小於 $sm 時 */
+@media (max-width: $sm) {
+  .content {
+      &.open {
+        margin-left: $maxleftWidth;
+        transition: width 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease; /* 平滑過渡效果 */
+      }
+
+      &.closed {
+        margin-left: 0;
+        transition: width 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease; /* 平滑過渡效果 */
+      }
+  }
+}
+
+/* 響應式設計：當螢幕寬度在 $md 到 $lg 之間 */
+@media (max-width: $md) and (min-width: $sm) {
+  .content {
+    &.open {
+      margin-left: $maxleftWidth;
+      transition: width 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease; /* 平滑過渡效果 */
+    }
+
+    &.closed {
+      margin-left: 50;
+      transition: width 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease; /* 平滑過渡效果 */
+    }
+  }
+}
