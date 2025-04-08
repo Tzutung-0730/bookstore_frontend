@@ -1,9 +1,12 @@
 /* Login.scss */
 $background-color: rgba(255, 255, 255, 0.9);
-$input-border-color: 1px solid #ccc;
+$input-border-color: rgb(107, 144, 128);
 $input-text-color: #415d3c;
+$input-placeholder-color: #6B9080;
 $button-color: #739274;
-$link-color: #172d64;
+$button-hover-color: #415d3c;
+$link-color: #004E75;
+$link-hover-color: #172d64;
 
 html, body {
     height: 100%;  /* 確保 body 佔滿整個視窗 */
@@ -54,14 +57,29 @@ html, body {
         width: 100%;
         padding: 12px 12px 12px 35px;  /* 給定一個padding，留出空間放圖標 */
         font-size: 14px;
-        border: $input-border-color;
+        // border: $input-border-color;
         border-radius: 20px;  /* 圓角的輸入框 */
-        color: $input-border-color;  /* 文字顏色 */
+        color: $input-text-color;  /* 文字顏色 */
         background-color: transparent;  /* 使背景透明 */
         // margin-bottom: 15px;
         box-sizing: border-box; /* 確保內邊距和邊框包含在寬度內 */
+        transition: box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+        
         ::placeholder {
-            color: $input-text-color;  /* 讓placeholder文字顏色顯示為淡灰色 */
+            color: $input-placeholder-color; 
+        }
+
+        &:hover {
+            // border-color: $input-border-color;
+            box-shadow: 0 0 0 1px $input-border-color;
+            // box-shadow: rgba(106, 141, 125, 0.5) 0px 0px 0px 0.2rem;
+        }
+
+        &:focus {
+            outline-offset: 0px;
+            box-shadow: rgba(106, 141, 125, 0.5) 0px 0px 0px 0.2rem;  /* 輕微的陰影效果 */
+            outline: none;  /* 去除預設的輪廓 */
+            border-color: $input-border-color;  /* 改變邊框顏色 */
         }
     }
     
@@ -76,8 +94,8 @@ html, body {
         font-size: 16px;
         margin-top: 10px;
 
-        :hover {
-            background-color: $button-color;
+        &:hover {
+            background-color: $button-hover-color;
         }
     }
 

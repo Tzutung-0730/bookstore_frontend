@@ -1,0 +1,114 @@
+@import '../../index.scss';
+
+/* Modal.scss */
+.modal-header {
+  margin-top: 10px;
+  padding-bottom: 10px;
+  font-weight: bold;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0; /* 加入邊框 */
+  height: 40px;
+}
+
+.modal-body {
+  // margin-top: 10px;
+  padding-bottom: 10px;
+  // font-weight: bold;
+  margin-left: 30px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0; /* 加入邊框 */
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px 0;
+  background-color: #f9f9f9;
+  border-radius: 0 0 10px 10px;
+}
+
+.modal-footer .p-button {
+  margin: 0 10px;
+}
+
+/* 基本按鈕樣式 */
+.p-button {
+  // padding: 10px 20px;
+  // border-radius: 5px;
+  font-size: 14px;
+  margin-right: 10px;
+  // transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 確認按鈕 */
+.p-button-success {
+  background-color: $green-button-color;  /* 成功顏色 */
+  color: white;
+
+  &:hover {
+    background-color: $green-button-hover-color;  /* hover時的顏色 */
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);  /* 聚焦時的陰影 */
+  }
+}
+
+/* 取消按鈕 */
+.p-button-secondary {
+  background-color: $gray-button-color;  /* 次要顏色 */
+  color: white;
+
+  &:hover {
+    background-color: $gray-button-hover-color;  /* hover時的顏色 */
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba(192, 192, 192, 0.25);  /* 聚焦時的陰影 */
+  }
+}
+
+/* 刪除按鈕 */
+.p-button-danger {
+  background-color: $red-button-color;  /* 錯誤顏色 */
+  color: white;
+
+  &:hover {
+    background-color: $red-button-hover-color;  /* hover時的顏色 */
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba(244, 67, 54, 0.25);  /* 聚焦時的陰影 */
+  }
+}
+
+// /* Dialog的樣式 */
+// .p-dialog .p-dialog-header {
+//   background-color: #f4f4f4; /* 頭部背景色 */
+//   color: #333;
+//   font-size: 18px;
+//   font-weight: bold;
+// }
+
+// .p-dialog .p-dialog-content {
+//   font-size: 16px;
+//   color: #555;
+//   padding: 20px;
+// }
+
+// .p-dialog .p-dialog-footer {
+//   background-color: #f9f9f9; /* 底部背景色 */
+//   padding: 15px;
+//   text-align: right;
+// }
+
+// .p-dialog .p-dialog-footer .p-button {
+//   margin-right: 10px;
+// }
+
+// /* 設置確認與取消按鈕的顯示樣式 */
+// .modal-footer {
+//   display: flex;
+//   justify-content: flex-end;
+//   gap: 10px;
+// }

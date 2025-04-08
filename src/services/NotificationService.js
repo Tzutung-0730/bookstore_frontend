@@ -19,23 +19,21 @@ class NotificationService {
       const messageElement = document.createElement('div');
       messageElement.textContent = message;
       messageElement.classList.add('message');
+
+      // 創建關閉按鈕
+      const closeButton = document.createElement('button');
+      const closeIcon = document.createElement('i');
+      closeIcon.classList.add('pi', 'pi-times'); // 使用 'pi-times' 圖標
+      closeButton.classList.add('close-btn');
+      closeButton.appendChild(closeIcon);
+      closeButton.addEventListener('click', () => {
+          notificationElement.remove(); // 點擊後移除通知
+      });
   
       notificationElement.appendChild(icon);
       notificationElement.appendChild(title);
       notificationElement.appendChild(messageElement);
-  
-      // 設定通知框的樣式
-    //   notificationElement.style.position = 'fixed';
-    //   notificationElement.style.top = '20px';
-    //   notificationElement.style.right = '20px';
-    //   notificationElement.style.padding = '15px 25px';
-    //   notificationElement.style.borderRadius = '8px';
-    //   notificationElement.style.zIndex = '9999';
-    //   notificationElement.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-    //   notificationElement.style.transition = 'opacity 0.3s ease';
-    //   notificationElement.style.maxWidth = '400px'; // 設定最大寬度
-    //   notificationElement.style.wordWrap = 'break-word';  // 文字換行
-    //   notificationElement.style.whiteSpace = 'normal'; // 設置文字為正常換行
+      notificationElement.appendChild(closeButton);
   
       // 顯示通知框
       document.body.appendChild(notificationElement);
@@ -47,20 +45,6 @@ class NotificationService {
           notificationElement.remove(); // 5秒後移除通知框
         }, 300);
       }, 5000);
-    }
-  
-    // 根據通知類型返回不同的背景顏色
-    static getBackgroundColor(type) {
-      switch (type) {
-        case 'success':
-          return '#4CAF50'; // 成功 - 綠色
-        case 'warn':
-          return '#FF9800'; // 警告 - 黃色
-        case 'error':
-          return '#f44336'; // 錯誤 - 紅色
-        default:
-          return '#4CAF50'; // 默認為綠色
-      }
     }
   }
   

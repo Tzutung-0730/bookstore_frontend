@@ -4,25 +4,12 @@ import ApiService from '../../services/ApiService';
 import { MenuApi } from '../../api/MenuApi';
 import './Header.scss';
 
-function Header({ isLoggedIn, role, onLogout }) {
-  const [menu, setMenu] = useState([]);
+function Header({ isLoggedIn, role, menu, onLogout }) {
+  // const [menu, setMenu] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // 控制菜單開關
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // 獲取菜單
-    const storedMenu = localStorage.getItem('menu');
-    if (storedMenu) {
-      setMenu(JSON.parse(storedMenu));
-    } else {
-      ApiService.get(MenuApi.GetMenu, true)
-        .then((res) => {
-          setMenu(res);
-          localStorage.setItem('menu', JSON.stringify(res));  // 儲存到 localStorage
-        })
-        .catch((err) => console.error('Menu fetch error:', err));
-    }
-
+  useEffect(() => {   
     // 監聽點擊外部區域以關閉菜單
     const handleClickOutside = (event) => {
       if (isMenuOpen && !event.target.closest('.side-menu') && !event.target.closest('.hamburger-menu')) {
@@ -52,13 +39,13 @@ function Header({ isLoggedIn, role, onLogout }) {
   };
 
   // 根據登入狀態過濾菜單
-  const leftMenu = menu.filter(item => item.visible_for === 'all');
-  const rightMenu = menu.filter(item => item.visible_for !== 'all' && 
-    ((item.visible_for === 'guest' && !isLoggedIn) || 
-     (item.visible_for === 'user' && isLoggedIn && role === 'user') || 
-     (item.visible_for === 'admin' && isLoggedIn && role === 'admin'))
+  const leftMenu = menu.filter(item => item.visible_for.includes('all'));
+  const rightMenu = menu.filter(item => 
+    ((item.visible_for.includes('guest') && !isLoggedIn) || 
+    (item.visible_for.includes('user') && isLoggedIn && role === 'user') || 
+    (item.visible_for.includes('admin') && isLoggedIn && role === 'admin'))
   );
-
+  
   return (
     <header className="header-container">
       <nav className="nav-bar">
@@ -152,6 +139,9 @@ function Header({ isLoggedIn, role, onLogout }) {
                 )}
               </li>
             ))}
+            {/* <button onClick={handleLogout} className="side-nav-link">
+                    <i className='pi pi-sign-out'></i> 登出
+            </button> */}
           </div>
         </ul>
       </nav>

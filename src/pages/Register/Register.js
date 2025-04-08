@@ -43,20 +43,18 @@ function Register() {
     }
 
     const registerData = {
+      username: username,
       account: account,
-      password: password,
+      email: email,
+      password: password
     };
 
     // 發送註冊請求
     ApiService.post(AuthApi.Register, registerData)
       .then((res) => {
-        if (res.success) {
-          // 註冊成功，重定向至登入頁面
-          navigate('/login');
-          NotificationService.showNotification('success', '註冊成功');
-        } else {
-          NotificationService.showNotification('error', '註冊失敗');
-        }
+        // 註冊成功，重定向至登入頁面
+        navigate('/login');
+        NotificationService.showNotification('success', '註冊成功');
       })
       .catch((err) => {
         NotificationService.showNotification('error', err.message);

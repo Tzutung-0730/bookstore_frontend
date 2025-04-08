@@ -1,15 +1,16 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ApiService from '../../services/ApiService';  // 假設這裡有 API 呼叫服務
-import { AuthApi } from '../../api/AuthApi';        // 假設這裡有 API 路徑配置
-import NotificationService from '../../services/NotificationService';  // 假設有錯誤提示服務
+import ApiService from '../../services/ApiService'; 
+import { AuthApi } from '../../api/AuthApi';  
+import NotificationService from '../../services/NotificationService';
+import Modal from '../../components/Modal/Modal';
 import './Login.scss';
 
 function Login({ onLoginSuccess }) {
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
   const [captcha, setCaptcha] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [showModal, setShowModal] = useState(false);
   const accountInput = useRef(null);  // 用來引用帳號輸入框
   const passwordInput = useRef(null); // 用來引用密碼輸入框
   const captchaInput = useRef(null);  // 用來引用圖形驗證碼輸入框
@@ -39,6 +40,7 @@ function Login({ onLoginSuccess }) {
       .then((res) => {
         if (res.token) {
           localStorage.setItem('token', res.token);
+          localStorage.setItem('role', res.user.role);
           
           // 更新父組件的 isLoggedIn 狀態
           onLoginSuccess(res.token, res.user.role); // 設置 isLoggedIn 為 true
@@ -49,13 +51,24 @@ function Login({ onLoginSuccess }) {
           setPassword('');
           NotificationService.showNotification('error', '未輸入帳號或密碼');
         }
-        console.log(res);
+        console.log(res.data);
       })
       .catch((err) => {
         setPassword('');
-        // setCaptcha('');
-        NotificationService.showNotification('error', err.message);
+        // setCaptcha('');       
+        NotificationService.showNotification('error', err.data.error);
+        setShowModal(true);  
       });
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false); // 關閉模態框
+  };
+
+  const handleConfirm = () => {
+    // 當確認時，跳轉到註冊頁面
+    navigate('/register');
+    setShowModal(false); // 關閉模態框
   };
 
   return (
@@ -104,6 +117,15 @@ function Login({ onLoginSuccess }) {
           <a href="/register">還沒有帳號？點此註冊</a>
         </div>
       </div>
+
+      <Modal
+        isOpen={showModal}
+        title="確認操作"
+        message="是否導向註冊頁面?"
+        buttons={['confirm', 'cancel']}  // 傳遞需要顯示的按鈕
+        onClose={handleModalClose}
+        onButtonClick={handleConfirm}
+      />
     </div>
   );
 }
