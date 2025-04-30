@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ApiService from './services/ApiService';  // 假設這裡有 API 呼叫服務
+import NotificationService from './services/NotificationService'; // 假設這裡有通知服務
 import { AuthApi } from './api/AuthApi';  
 import { MenuApi } from './api/MenuApi';
 import './App.scss';
@@ -14,6 +15,8 @@ import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Logout from './pages/Logout/Logout';
 import Register from './pages/Register/Register';
+import Books from './pages/Books/Books';
+import BookDetails from './pages/BookDetails/BookDetails';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
@@ -22,13 +25,24 @@ function App() {
   const [menu, setMenu] = useState([]); // 菜單狀態
 
   useEffect(() => {
-    ApiService.get(MenuApi.GetMenu, true)
-      .then((res) => {
-        setMenu(res);
-        console.log("Menu fetched:", res);
-      })
-      .catch((err) => console.error('Menu fetch error:', err));
-  
+    // 檢查 localStorage 中是否有 menu
+    const storedMenu = localStorage.getItem('menu');
+    
+    if (storedMenu) {
+      setMenu(JSON.parse(storedMenu)); // 使用 localStorage 中的 menu 資料
+      console.log("Menu fetched from localStorage:", storedMenu);
+    } else {
+      // 如果沒有，則從 API 獲取 menu
+      ApiService.get(MenuApi.GetMenu, true)
+        .then((res) => {
+          setMenu(res);
+          // 將獲取到的 menu 儲存在 localStorage 以便下次使用
+          localStorage.setItem('menu', JSON.stringify(res));
+          console.log("Menu fetched from API:", res);
+        })
+        .catch((err) => console.error('Menu fetch error:', err));
+    }
+    
     const storedToken = localStorage.getItem('token');
     const storedRole = localStorage.getItem('role');
     if (storedToken && storedRole) {
@@ -36,7 +50,7 @@ function App() {
       setToken(storedToken);
       setRole(storedRole);
     }
-  }, []); 
+  }, []);  
 
   const handleLoginSuccess = (token, role) => {
     localStorage.setItem('token', token);
@@ -52,8 +66,11 @@ function App() {
         console.log('Logout successful:', res);
 
         localStorage.removeItem('token');
-        localStorage.removeItem('role');
-        localStorage.removeItem('menu');
+
+        setIsLoggedIn(false);
+        setRole('guest');
+        
+        NotificationService.showNotification('success', '登出成功');
       })
       .catch((err) => {
         console.error('Logout error:', err);
@@ -72,6 +89,8 @@ function App() {
             <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess}/>} />
             <Route path="/logout" element={<Logout onLogout={handleLogout} />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/books" element={<Books />} />
+            <Route path="/books/:isbn" element={<BookDetails />} /> 
           </Routes>
         </div>
       </div>

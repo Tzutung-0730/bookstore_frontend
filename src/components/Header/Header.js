@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import ApiService from '../../services/ApiService';
-import { MenuApi } from '../../api/MenuApi';
 import './Header.scss';
 
 function Header({ isLoggedIn, role, menu, onLogout }) {

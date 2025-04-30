@@ -1,0 +1,163 @@
+@import '../../index.scss';
+
+// html, body {
+//   margin: 0;
+//   padding: 0;
+//   height: 100%;  /* 確保頁面佔滿整個視口 */
+//   overflow: auto; /* 禁用整體頁面的滾動條 */
+// }
+
+.books-container {
+  height: 100%;
+}
+
+.books-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start; 
+}
+
+.book-item {
+  width: 23%;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  width: calc(20% - 16px);  // 5 items per row
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.book-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.book-image-container {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+
+.book-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.book-info {
+  display: flex;
+  flex-direction: column;  /* 垂直排列書籍資訊 */
+  padding: 15px;
+  flex-grow: 1;  /* 讓書籍資訊填滿剩餘空間 */
+  text-align: left;
+}
+
+.book-info h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.book-info p {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background-color: #f0f0f0;  /* 按鈕背景顏色 */
+  color: #333;  /* 文字顏色 */
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 30px;  /* 圓角 */
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;  /* 讓背景顏色和按鈕大小在懸停時有過渡效果 */
+}
+
+.pagination button:hover {
+  background-color: #007bff;  /* 懸停時改變背景顏色 */
+  color: white;  /* 懸停時改變文字顏色 */
+  transform: scale(1.05);  /* 增加大小效果 */
+}
+
+.pagination button:disabled {
+  background-color: #ccc;  /* 禁用狀態背景顏色 */
+  color: #666;  /* 禁用狀態文字顏色 */
+}
+
+.pagination span {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;  /* 中間頁數的顏色 */
+  align-self: center;  /* 垂直居中 */
+}
+
+.info-btn {
+  background-color: $green-button-color;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.info-btn:hover {
+  background-color: $green-button-hover-color; /* Hover效果 */
+}
+
+.info-btn:active {
+  background-color: $green-button-hover-color; /* Active效果 */
+}
+
+.add-cart-btn {
+  background-color: $yellow-button-color;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.add-cart-btn:hover {
+  background-color: $yellow-button-hover-color;
+}
+.add-cart-btn:active {
+  background-color: $yellow-button-hover-color;
+}
+
+.book-actions {
+  display: flex;
+  justify-content: center;  /* 使按鈕在水平方向上居中 */
+  align-items: center;      /* 使按鈕在垂直方向上居中 */
+  gap: 10px;                /* 如果你想要按鈕之間有一些間距，可以使用 gap 屬性 */
+  margin-top: auto;
+}
+
+@media (max-width: 1200px) {
+  .book-item {
+    width: calc(25% - 16px);  // 4 items per row on larger tablets
+  }
+}
+
+@media (max-width: 900px) {
+  .book-item {
+    width: calc(33.33% - 16px);  // 3 items per row on medium screens
+  }
+}
+
+@media (max-width: 600px) {
+  .book-item {
+    width: 100%;  // 1 item per row on smaller screens
+  }
+}

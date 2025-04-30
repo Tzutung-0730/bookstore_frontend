@@ -20,22 +20,41 @@ $close-hover-bg: #d5d5d5;
 .App {
   text-align: center;
   background-color: $active-bg;
+  height: 100vh; /* 設置高度為視口高度 */
 }
 
 .content {
-  padding: 20px;
+  margin-top: 50px; /* header 高度 */
   transition: margin-left 0.3s ease;
   height: 100vh;
-
-  &.open {
-    margin-left: $maxleftWidth;
-  }
-
-  &.closed {
-    margin-left: $minleftWidth;
-  }
+  overflow-y: scroll;
 }
 
+/* 滾動條樣式 */
+::-webkit-scrollbar {
+  width: 8px;  /* 設置滾動條寬度 */
+  margin-top: 50px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888;  /* 滾動條的顏色 */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;  /* 滾動條懸停時的顏色 */
+}
+
+/* 確保 header 固定在頁面頂部 */
+header {
+  position: fixed;  /* 固定 header */
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;  /* 設置背景顏色 */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 添加陰影 */
+  height: 50px;
+}
 
 /* 響應式設計：當螢幕寬度小於 $sm 時 */
 @media (max-width: $sm) {

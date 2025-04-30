@@ -48,15 +48,15 @@ function Modal({ isOpen, title, message, buttons, onClose, onButtonClick }) {
             visible={isOpen}
             header={<p className="modal-header">{title}</p>}
             footer={
-                <div>
+                <div className="modal-footer">
                     {buttons.includes('cancel') && renderButton('cancel')}
                     {buttons.includes('confirm') && renderButton('confirm')}
                     {buttons.includes('delete') && renderButton('delete')}
                 </div>
             }
             onHide={onClose}
-            breakpoints={{ "960px": "75vw", "640px": "100vw" }}
-            style={{ width: "50vw" }} // 調整視窗大小
+            breakpoints={{ "960px": "50vw", "640px": "60vw" }}
+            style={{ width: "50vw", maxWidth: "500px" }}  // 調整視窗大小
             draggable={false}
         >
             <div className="modal-body">{message}</div>
